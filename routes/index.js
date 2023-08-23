@@ -18,10 +18,20 @@ router.get('/user', (req, res) =>{
   res.status(200).json({ name: 'John', age: 45, height: '56 inch' })
 })
 
-router.post('/users', (req, res) =>{
-  array.push(req.body.name)
-  res.json({ name: 'John' })
-})
+// router.post('/user', (req, res) =>{
+//   // array.push(req.body.name)
+//   res.json(req.body)
+// })
+
+router.post('/user', (req, res) =>{
+  // 
+	res.json({
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+		email: req.body.email,
+		username: req.body.username
+  })
+}   )
 
 router.get('/workers', (req, res) =>{
   res.json({ email: ' worker@work.com'})

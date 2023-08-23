@@ -2,14 +2,14 @@ const index = require('./routes/index')
 const express = require('express')
 const request = require('supertest')
 const assert = require('assert')
-const connectDB = require('./connections/mongoTestingConfig')
+// const connectDB = require('./connections/mongoTestingConfig')
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(index)
 
 
-connectDB()
+// connectDB()
 
 test('index route works', done =>{
     try {
@@ -44,14 +44,14 @@ test('get user route works', done =>{
 })
 
 
-test('responds with json', done =>{
-    request(app)
-        .post('/users')
-        .send({ name: 'John' })
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-})
+// test('responds with json', done =>{
+//     request(app)
+//         .post('/users')
+//         .send({ name: 'John' })
+//         .set('Accept', 'application/json')
+//         .expect('Content-Type', /json/)
+//         .expect(200, done)
+// })
 
 test('get workers route respons with json', () =>{
     request(app)
@@ -96,4 +96,27 @@ test('Sychronous test for post player works', done =>{
         .expect((res) => res.body.name = res.body.name.toLowerCase())
         .expect(200)
         .expect({ name: 'john' }, done)
+})
+
+test('______________POST USER route works', async() =>{
+    const response = await request(app).post('/user')
+        .type('form')
+        .send({
+            first_name: 'John',
+            last_name: 'Kennedy',
+            email: 'johnken@gmail.com',
+            username: 'John', 
+            password: 'password', 
+        })
+        .set('Accept', 'application/json')
+    
+        expect(response.headers['content-type']).toMatch(/json/)
+        expect(response.status).toEqual(200)
+        expect(response.body).toStrictEqual({
+            first_name: 'John',
+            last_name: 'Kennedy',
+            email: 'johnken@gmail.com',
+            username: 'John', 
+        })
+       
 })
