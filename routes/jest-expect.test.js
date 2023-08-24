@@ -296,3 +296,16 @@ test('Assertions called twics', async() =>{
     await expect.assertions(2)
     await expect.hasAssertions()
 })
+
+test.only('Rejects with error', async() =>{
+    const mockfn = jest.fn()
+        .mockRejectedValueOnce(new Error ('Unknown'))
+        .mockRejectedValueOnce(new Error('Unknown'))
+
+    // await mockfn()
+
+    await expect(mockfn()).rejects.toThrow(/Unkn/)
+    await expect(mockfn()).rejects.toThrow(/Unknown/)
+
+    
+})

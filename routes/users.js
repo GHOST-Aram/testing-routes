@@ -24,6 +24,20 @@ const routes = (db) =>{
 		email, 
 		password
 	})
+	const user2 = await db.createUser({
+		first_name, 
+		last_name, 
+		username, 
+		email, 
+		password
+	})
+	const user3 = await db.createUser({
+		first_name, 
+		last_name, 
+		username, 
+		email, 
+		password
+	})
     res.json({
 		first_name: user.first_name,
 		last_name: user.last_name,
